@@ -7,6 +7,7 @@
         "frontend:e2e": "cd udagram-frontend && npm run e2e",
         "frontend:lint": "cd udagram-frontend && npm run lint",
         "frontend:deploy": "cd udagram-frontend && npm run deploy",
+        
         "backend:install": "cd udagram-api && npm install .",
         "backend:build": "cd udagram-api && npm run build",
         "backend:start": "cd udagram-api && npm run dev",

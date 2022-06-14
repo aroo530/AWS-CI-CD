@@ -44,8 +44,6 @@ jobs:
             npm run backend:build
   #test the app
   test:
-    docker:
-      - image: "cimg/node:14.15"
     steps:
       - run:
           name: Test Front-End
@@ -59,8 +57,6 @@ jobs:
             npm run backend:test
   #deploy the app
   deploy:
-    docker:
-      - image: "cimg/base:stable"
       # more setup needed for aws, node, elastic beanstalk
     steps:
       - node/install:
