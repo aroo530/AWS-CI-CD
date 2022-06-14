@@ -9,9 +9,11 @@ jobs:
   #set environment variables
   set-env:
     #set the environment variables
-    AWS_DEFAULT_REGION:us-east-1
-    AWS_SECRET_ACCESS_KEY:AKIAZRW7KEEFZ2YZARDJ
-    AWS_ACCESS_KEY_ID:hztS4kxiM1w9AxXb6/6dviF7NRmkmzcvOtPbmrPa
+    environment:
+      #set the environment variable
+      AWS_DEFAULT_REGION:us-east-1
+      AWS_SECRET_ACCESS_KEY:AKIAZRW7KEEFZ2YZARDJ
+      AWS_ACCESS_KEY_ID:hztS4kxiM1w9AxXb6/6dviF7NRmkmzcvOtPbmrPa
   build:
     docker:
       # the base image can run most needed actions with orbs
