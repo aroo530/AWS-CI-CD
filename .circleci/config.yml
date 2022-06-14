@@ -44,8 +44,6 @@ jobs:
             npm run backend:build
   #test the app
   test:
-    docker:
-      - image: "cimg/node:14.15"
     steps:
       - run:
           name: Test Front-End
