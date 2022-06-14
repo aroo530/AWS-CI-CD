@@ -78,7 +78,6 @@ jobs:
 workflows:
   udagram:
     jobs:
-      - set-env
       - build
       - test:
           requires:
