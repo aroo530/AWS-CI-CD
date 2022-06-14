@@ -67,6 +67,7 @@ jobs:
           # TODO: Install, build, deploy in both apps
           command: |
             echo "TODO: Deploy App"
+            pip3 install --upgrade awscli
             npm run frontend:deploy
             npm run backend:deploy
 workflows:
