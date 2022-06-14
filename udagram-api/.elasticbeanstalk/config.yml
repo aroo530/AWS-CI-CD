@@ -1,8 +1,18 @@
 branch-defaults:
-  master:
-    environment: Arsanyeb-env
+  default:
+    branch: master
+    group_suffix: null
 global:
-  application_name: arsanyeb
-  default_platform: 64bit Amazon Linux 2017.09 v2.6.2 running Node.js 14 (Passenger Standalone)
+  application_name: udagram-api
+  branch: null
+  default_ec2_keyname: null
+  default_platform: Node.js
   default_region: us-east-1
-  sc: git
+  include_git_submodules: true
+  instance_profile: null
+  platform_name: null
+  platform_version: null
+  profile: eb-cli
+  repository: null
+  sc: null
+  workspace_type: Application
