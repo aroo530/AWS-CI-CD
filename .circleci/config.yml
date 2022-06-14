@@ -46,7 +46,7 @@ jobs:
           name: Test Front-End
           command: |
             sudo npm install -g karma-cli
-            CHROME_BIN=/usr/bin/google-chrome karma start --single-run
+            CHROME_BIN=/usr/bin/google-chrome
             echo "TODO: Test the frontend app"
             npm run frontend:test
 
