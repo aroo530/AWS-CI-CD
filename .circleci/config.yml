@@ -47,7 +47,7 @@ jobs:
           command: |
             echo "TODO: Test the frontend app"
             npm run frontend:test
-      
+
   deploy:
     docker:
       - image: "cimg/base:stable"
@@ -69,9 +69,6 @@ workflows:
   udagram:
     jobs:
       - build
-      - test:
-          requires:
-            - build
       - deploy:
           requires:
-            - test
+            - build
