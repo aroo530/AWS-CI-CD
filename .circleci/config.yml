@@ -7,13 +7,6 @@ orbs:
   # different jobs are calles later in the workflows sections
 jobs:
   #set environment variables
-  set-env:
-    #set the environment variables
-    environment:
-      #set the environment variable
-      AWS_DEFAULT_REGION:us-east-1
-      AWS_SECRET_ACCESS_KEY:AKIAZRW7KEEFZ2YZARDJ
-      AWS_ACCESS_KEY_ID:hztS4kxiM1w9AxXb6/6dviF7NRmkmzcvOtPbmrPa
   build:
     docker:
       # the base image can run most needed actions with orbs
