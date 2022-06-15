@@ -12,7 +12,7 @@ jobs:
   build:
     docker:
       # the base image can run most needed actions with orbs
-      - image: cimg/node:14.15-browsers
+      - image: "cimg/node:14.15-browsers"
     steps:
       # install node and checkout code
       - node/install:
@@ -60,23 +60,30 @@ jobs:
           key: v1-front-build-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
           paths:
             - udagram-frontend/www
+      - save_cache:
+          key: v1-front-dependencies-{{ checksum "package.json" }}
+          paths:
+            - udagram-frontend/node_modules
+      - save_cache:
+          key: v1-back-dependencies-{{ checksum "package.json" }}
+          paths:
+            - udagram-api/node_modules
   deploy:
     docker:
-      - image: cimg/base:stable
+      - image: "cimg/base:stable"
       # more setup needed for aws, node, elastic beanstalk
     steps:
-      - restore_cache:
-          keys: 
-            - v1-Back-build-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
-            - udagram-api/www
-      - restore_cache:
-          keys:
-            - v1-front-build-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
       - node/install:
           node-version: "14.15"
       - eb/setup
       - aws-cli/setup
       - checkout
+      - restore_cache:
+          keys:
+            - v1-back-dependencies-{{ checksum "package.json" }}
+            - v1-front-dependencies-{{ checksum "package.json" }}
+            - v1-Back-build-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
+            - v1-front-build-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
       - run:
           name: Deploy App
           # TODO: Install, build, deploy in both apps
