@@ -55,22 +55,22 @@ jobs:
       - save_cache:    
           key:
            v1-Back-build-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
-            paths:
-              - udagram-api/www 
+          paths:
+            - udagram-api/www 
       - save_cache:    
           key:
            v1-front-build-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
-            paths:
+          paths:
               - udagram-frontend/www 
       - save_cache:
           key:
            v1-front-dependencies-{{ checksum "package.json" }}
-            paths:
+          paths:
               - udagram-frontend/node_modules
       - save_cache:
           key:
            v1-back-dependencies-{{ checksum "package.json" }}
-            paths:
+          paths:
               - udagram-api/node_modules
   deploy:
     docker:
