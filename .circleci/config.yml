@@ -64,12 +64,12 @@ jobs:
               - udagram-frontend/www 
       - save_cache:
           key:
-           v1-front-dependencies-{{ checksum "package.json" }}
+           v1-front-dependencies-{{ checksum "package.json" }}-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
           paths:
               - udagram-frontend/node_modules
       - save_cache:
           key:
-           v1-back-dependencies-{{ checksum "package.json" }}
+           v1-back-dependencies-{{ checksum "package.json" }}-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
           paths:
               - udagram-api/node_modules
   deploy:
@@ -79,8 +79,8 @@ jobs:
     steps:
       - restore_cache:
           keys:
-            - v1-back-dependencies-{{ checksum "package.json" }}
-            - v1-front-dependencies-{{ checksum "package.json" }}
+            - v1-back-dependencies-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
+            - v1-front-dependencies-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
             - v1-Back-build-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
             - v1-front-build-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
       - node/install:
