@@ -78,10 +78,8 @@ jobs:
       - persist_to_workspace:
           root: ~/
           paths:
-            - project/udagram-frontend/www
-            - project/udagram-api/www
-            - project/udagram-api/node_modules
-            - project/udagram-frontend/node_modules
+            - project/udagram-frontend
+            - project/udagram-api
   deploy:
     docker:
       - image: "cimg/base:stable"
