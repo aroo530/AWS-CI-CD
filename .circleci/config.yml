@@ -75,6 +75,11 @@ jobs:
           key: v1-Backend-dependencies-{{ checksum "package.json" }}
           paths:
             - udagram-api/node_modules
+     - persist_to_workspace:
+          root: ~/
+          paths:
+            - udagram-frontend/www
+            - udagram-api/www
   deploy:
     docker:
       - image: "cimg/base:stable"
@@ -85,6 +90,8 @@ jobs:
       - eb/setup
       - aws-cli/setup
       - checkout
+      - attach_workspace:
+          at: ~/
       - restore_cache:
           keys:
             - v1-Back-build
@@ -101,6 +108,7 @@ workflows:
   udagram:
     jobs:
       - build
+        
       - deploy:
           requires:
             - build
