@@ -51,7 +51,28 @@ jobs:
             CHROME_BIN=/usr/bin/google-chrome
             echo "TODO: Test the frontend app"
             npm run frontend:test
-
+# Cache the dist folder for the deploy job
+      - save_cache:    
+          key:
+           v1-Back-build-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
+               paths:
+               - udagram-api/www 
+      - save_cache:    
+          key:
+           v1-front-build-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
+               paths:
+               - udagram-frontend/www 
+      - save_cache:
+          key:
+           v1-front-dependencies-{{ checksum "package.json" }}
+          paths:
+                - udagram-frontend/node_modules
+      - save_cache:
+          key:
+           v1-back-dependencies-{{ checksum "package.json" }}
+          paths:
+                - udagram-api/node_modules
+  
   deploy:
     docker:
       - image: "cimg/base:stable"
