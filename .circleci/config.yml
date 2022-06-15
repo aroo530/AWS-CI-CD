@@ -19,6 +19,13 @@ jobs:
           node-version: "14.15"
       - browser-tools/install-browser-tools
       - checkout
+      # Restore local dependencies from cache
+      - restore_cache:
+          keys:
+            - v1-front-dependencies-{{ checksum "package.json" }}
+            - v1-front-dependencies-
+            - v1-Backend-dependencies-{{ checksum "package.json" }}
+            - v1-Backend-dependencies-
       - run:
           name: Install Front-End Dependencies
           command: |
@@ -53,21 +60,21 @@ jobs:
             npm run frontend:test
       # Cache the dist folder for the deploy job
       - save_cache:
-          key: v1-Back-build-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
+          key: v1-Back-build
           paths:
             - udagram-api/www
       - save_cache:
-          key: v1-front-build-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
+          key: v1-front-build
           paths:
             - udagram-frontend/www
-      # - save_cache:
-      #     key: v1-front-dependencies-{{ checksum "package.json" }}
-      #     paths:
-      #       - udagram-frontend/node_modules
-      # - save_cache:
-      #     key: v1-back-dependencies-{{ checksum "package.json" }}
-      #     paths:
-      #       - udagram-api/node_modules
+      - save_cache:
+          key: v1-front-dependencies-{{ checksum "package.json" }}
+          paths:
+            - udagram-frontend/node_modules
+      - save_cache:
+          key: v1-Backend-dependencies-{{ checksum "package.json" }}
+          paths:
+            - udagram-api/node_modules
   deploy:
     docker:
       - image: "cimg/base:stable"
@@ -80,10 +87,8 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - v1-back-dependencies-{{ checksum "package.json" }}
-            - v1-front-dependencies-{{ checksum "package.json" }}
-            - v1-Back-build-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
-            - v1-front-build-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
+            - v1-Back-build
+            - v1-front-build
       - run:
           name: Deploy App
           # TODO: Install, build, deploy in both apps
