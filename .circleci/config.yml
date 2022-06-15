@@ -16,7 +16,7 @@ jobs:
     steps:
       # install node and checkout code
       - node/install:
-          node-version: 14.15
+          node-version: "14.15"
       - browser-tools/install-browser-tools
       - checkout
       - run:
@@ -66,17 +66,14 @@ jobs:
       # more setup needed for aws, node, elastic beanstalk
     steps:
       - restore_cache:
-          keys:
+          keys: 
             - v1-Back-build-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
-          paths:
             - udagram-api/www
       - restore_cache:
           keys:
             - v1-front-build-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
-          paths:
-            - udagram-frontend/www
       - node/install:
-          node-version: 14.15
+          node-version: "14.15"
       - eb/setup
       - aws-cli/setup
       - checkout
