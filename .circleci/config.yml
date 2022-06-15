@@ -80,6 +80,8 @@ jobs:
           paths:
             - project/udagram-frontend/www
             - project/udagram-api/www
+            - project/udagram-api/node_modules
+            - project/udagram-frontend/node_modules
   deploy:
     docker:
       - image: "cimg/base:stable"
@@ -108,7 +110,7 @@ workflows:
   udagram:
     jobs:
       - build
-        
+
       - deploy:
           requires:
             - build
