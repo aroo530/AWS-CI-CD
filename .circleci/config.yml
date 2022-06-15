@@ -60,14 +60,14 @@ jobs:
           key: v1-front-build-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
           paths:
             - udagram-frontend/www
-      - save_cache:
-          key: v1-front-dependencies-{{ checksum "package.json" }}
-          paths:
-            - udagram-frontend/node_modules
-      - save_cache:
-          key: v1-back-dependencies-{{ checksum "package.json" }}
-          paths:
-            - udagram-api/node_modules
+      # - save_cache:
+      #     key: v1-front-dependencies-{{ checksum "package.json" }}
+      #     paths:
+      #       - udagram-frontend/node_modules
+      # - save_cache:
+      #     key: v1-back-dependencies-{{ checksum "package.json" }}
+      #     paths:
+      #       - udagram-api/node_modules
   deploy:
     docker:
       - image: "cimg/base:stable"
