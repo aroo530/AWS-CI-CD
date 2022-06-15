@@ -51,27 +51,15 @@ jobs:
             CHROME_BIN=/usr/bin/google-chrome
             echo "TODO: Test the frontend app"
             npm run frontend:test
-# Cache the dist folder for the deploy job
-      - save_cache:    
-          key:
-           v1-Back-build-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
-          paths:
-            - udagram-api/www 
-      - save_cache:    
-          key:
-           v1-front-build-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
-          paths:
-              - udagram-frontend/www 
+      # Cache the dist folder for the deploy job
       - save_cache:
-          key:
-           v1-front-dependencies-{{ checksum "package.json" }}-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
+          key: v1-Back-build-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
           paths:
-              - udagram-frontend/node_modules
+            - udagram-api/www
       - save_cache:
-          key:
-           v1-back-dependencies-{{ checksum "package.json" }}-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
+          key: v1-front-build-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
           paths:
-              - udagram-api/node_modules
+            - udagram-frontend/www
   deploy:
     docker:
       - image: "cimg/base:stable"
@@ -79,8 +67,6 @@ jobs:
     steps:
       - restore_cache:
           keys:
-            - v1-back-dependencies-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
-            - v1-front-dependencies-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
             - v1-Back-build-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
             - v1-front-build-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
       - node/install:
