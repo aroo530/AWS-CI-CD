@@ -77,12 +77,12 @@ jobs:
       - image: "cimg/base:stable"
       # more setup needed for aws, node, elastic beanstalk
     steps:
-    - restore_cache:
-        keys:
-          - v1-back-dependencies-{{ checksum "package.json" }}
-          - v1-front-dependencies-{{ checksum "package.json" }}
-          - v1-Back-build-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
-          - v1-front-build-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
+      - restore_cache:
+          keys:
+            - v1-back-dependencies-{{ checksum "package.json" }}
+            - v1-front-dependencies-{{ checksum "package.json" }}
+            - v1-Back-build-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
+            - v1-front-build-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
       - node/install:
           node-version: "14.15"
       - eb/setup
