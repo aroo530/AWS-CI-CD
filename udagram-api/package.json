@@ -8,6 +8,7 @@
   "main": "src/server.ts",
   "scripts": {
     "start": "node ./www/server.js",
+    "Tstart": "npx ts-node ./src/server.ts",
     "tsc": "npx tsc",
     "dev": "npx ts-node-dev --respawn --transpile-only ./src/server.ts",
     "prod": "npx tsc && node ./www/server.js",
@@ -33,7 +34,8 @@
     "pg": "^8.7.1",
     "reflect-metadata": "^0.1.13",
     "sequelize": "^5.21.4",
-    "sequelize-typescript": "^0.6.9"
+    "sequelize-typescript": "^0.6.9",
+    "ts-node": "^10.8.1"
   },
   "devDependencies": {
     "@types/bluebird": "^3.5.26",
