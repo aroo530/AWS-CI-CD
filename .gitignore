@@ -1,3 +1,7 @@
 node_modules
 udagram-api/.elasticbeanstalk/app_versions/
 udagram-api/.elasticbeanstalk/app_versions/
+set_env.sh
+script.sh
+.env
+.vscode
