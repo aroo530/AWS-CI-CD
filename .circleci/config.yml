@@ -97,11 +97,16 @@ jobs:
             - v1-Back-build
             - v1-front-build
       - run:
-          name: Deploy App
-          # TODO: Install, build, deploy in both apps
+          name: set eb environment Variables and prepare for deploy
           command: |
             echo "TODO: Deploy App"
             pip3 install --upgrade awscli
+            echo "TODO: set eb environment Variables"
+            eb setenv PORT={{PORT}} POSTGRES_USERNAME={{POSTGRES_USERNAME}} POSTGRES_PASSWORD={{POSTGRES_PASSWORD}} POSTGRES_DB={{POSTGRES_DB}} POSTGRES_DB_PORT={{POSTGRES_DB_PORT}} POSTGRES_HOST={{POSTGRES_HOST}} AWS_REGION={{AWS_REGION}} AWS_PROFILE={{AWS_PROFILE}} AWS_BUCKET={{AWS_BUCKET}} AWS_SECRET_ACCESS_KEY={{AWS_SECRET_ACCESS_KEY}} AWS_ACCESS_KEY_ID={{AWS_ACCESS_KEY_ID}} JWT_SECRET={{JWT_SECRET}} URL={{URL}}
+
+      - run:
+          name: Deploy App
+          command: |
             npm run frontend:deploy
             npm run backend:deploy
 workflows:
